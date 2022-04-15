@@ -3,7 +3,7 @@ import torch.nn as nn
 from . import BaseTask, register_task
 from ..dataset import build_dataset
 from ..utils import Evaluator
-
+from openhgnn.dataset.adapter import AsNodeClassificationDataset
 
 @register_task("node_classification")
 class NodeClassification(BaseTask):

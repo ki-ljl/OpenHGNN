@@ -1,10 +1,11 @@
 import importlib
+from dgl.data import DGLDataset
 from .base_dataset import BaseDataset
-from .utils import load_acm, load_acm_raw
+from .utils import load_acm, load_acm_raw, generate_random_hg
 from .academic_graph import AcademicDataset
 from .hgb_dataset import HGBDataset
 from .ohgb_dataset import OHGBDataset
-
+from .adapter import AsNodeClassificationDataset
 
 DATASET_REGISTRY = {}
 
@@ -46,6 +47,8 @@ def try_import_task_dataset(task):
 
 
 def build_dataset(dataset, task, *args, **kwargs):
+    if isinstance(dataset, DGLDataset):
+        return dataset
     if not try_import_task_dataset(task):
         exit(1)
     if dataset in ['aifb', 'mutag', 'bgs', 'am']:
